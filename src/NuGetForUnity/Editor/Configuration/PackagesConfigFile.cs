@@ -24,6 +24,8 @@ namespace NugetForUnity.Configuration
 
         private const string TargetFrameworkAttributeName = "targetFramework";
 
+        private const string DefineConstraintsAttributeName = "defineConstraints";
+
         [CanBeNull]
         private string contentIsSameAsInFilePath;
 
@@ -74,6 +76,7 @@ namespace NugetForUnity.Configuration
                     AutoReferenced = (bool)(packageElement.Attributes(AutoReferencedAttributeName).FirstOrDefault() ??
                                             new XAttribute(AutoReferencedAttributeName, true)),
                     TargetFramework = packageElement.Attribute(TargetFrameworkAttributeName)?.Value,
+                    DefineConstraints = packageElement.Attribute(DefineConstraintsAttributeName)?.Value,
                 };
                 configFile.Packages.Add(package);
             }
@@ -151,6 +154,11 @@ namespace NugetForUnity.Configuration
                 if (!string.IsNullOrEmpty(package.TargetFramework))
                 {
                     packageElement.Add(new XAttribute(TargetFrameworkAttributeName, package.TargetFramework));
+                }
+
+                if (!string.IsNullOrEmpty(package.DefineConstraints))
+                {
+                    packageElement.Add(new XAttribute(DefineConstraintsAttributeName, package.DefineConstraints));
                 }
 
                 packagesFile.Root?.Add(packageElement);

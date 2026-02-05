@@ -291,6 +291,9 @@ namespace NugetForUnity
         private static string[] ModifyImportSettingsOfGeneralPlugin([NotNull] PackageConfig packageConfig, [NotNull] PluginImporter plugin)
         {
             PluginImporterIsExplicitlyReferencedProperty.SetValue(plugin, !packageConfig.AutoReferenced);
+            plugin.DefineConstraints = string.IsNullOrEmpty(packageConfig.DefineConstraints)
+                ? Array.Empty<string>()
+                : packageConfig.DefineConstraints.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             return new[] { ProcessedLabel };
         }

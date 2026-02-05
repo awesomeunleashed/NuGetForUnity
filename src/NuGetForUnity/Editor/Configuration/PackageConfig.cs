@@ -22,5 +22,11 @@ namespace NugetForUnity.Configuration
         /// </summary>
         [CanBeNull]
         public string TargetFramework { get; set; }
+
+        /// <summary>
+        ///    Gets or sets the define constraints that should be added to the plugin importer when this package is installed.
+        /// </summary>
+        [CanBeNull]
+        public string DefineConstraints { get; set; }
     }
 }
